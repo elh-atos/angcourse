@@ -1,0 +1,22 @@
+Identification sur git
+git config --global user.name "John Doe"
+git config --global user.email johndoe@exemple.com
+
+--global nous permet de faire les réglages une seule fois.
+
+git config --list permet de vérifier si les paramétres sont ok
+
+Activation des couleurs
+git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto
+
+Par défaut, Git utilisera Vim comme éditeur et Vimdiff comme outil de merge. Vous pouvez les modifier en utilisant :
+git config --global core.editor notepad++
+git config --global merge.tool vimdiff
+
+Initialiser un dépot git
+git init
+
+git remote add <nom> <url> permet de dire au dépot que l'on pointe vers le sépot distant.
+

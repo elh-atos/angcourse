@@ -1,0 +1,152 @@
+les dossiers
+    -e2e est réservé au testes end to end
+    -node_modules contient toutes les dépendances pour l'application
+    -src contient tous les fichiers sources pour l'application
+
+@Component() est un décorateur qui contient les objets suivants:
+    -selector: qui contient le nom qu'on utilisera comme balise HTML pour afficher ce Component
+                ce nom doit être unique et ne doit pas être un nom réservé HTML
+    -templateUrl: chemin vers le code HTML à injecter
+    -styleUrls: array contenant un ou plusieurs chemins vers les feulles de styles qui concernent ce Component
+
+Toute la logique du component sera gérée sur le fichier nom.component.ts
+Pour créer un component: ng generate component mon-component
+le fichier spec contient aussi les testes.
+A chaque création d'un component, le fichier app.module.ts est mis à jour,
+Le component nouvellement créé est ajouter au tableau declarations:[] dans le décorateur @NgModule
+
+Le databinding, est lacommunication entre votre code TypeScript et le template HTML
+qui est montré à l'utilisateur.
+Cette communication est divisée en deux:
+    -les infos venant de votre code qui doivent être affichée dans le navigateur.
+        Les deux principales méthodes pour cela sont le "string interpolation" et le "property binding"
+    -les infos venant du template qui doivent être gérées par le code (action après remplissage d'un formulaire par exemple)
+        On parle de "event binding"
+Il y a aussi le "two-way binding" pour unr communication à double sens.
+
+Interpolation (String interpolation) {{}}
+Ce qui se trouve dans les {{ }}, correspond à l'expression TypeScript que nous voulons afficher.
+Exemple de déclaration d'une variable: appareilName: string  = 'Machine à laver';
+la déclaration de type n'est pas obligatoire (string)
+On peut utiliser toute expression TypeScript valable pour l'interpolation.
+    <h1>{{appareilName}}<h1>
+
+Property binding (liaison par proprieté) []
+Nous permet de dynamiser les proprieté HTML par une liaison dynamique du TypeScript et du template HTML
+en ajoutant entre-cochet la proprieté HTML concernée avant de lui donner une valeur gérée dynamiquement dans le ts
+Exemple:
+    <button class="btn btn-success" [disabled]="!isAuh">Tout allumer</button>
+
+Event binding (liaison par évenement venant du template HTML) ()
+Convention de nomage des méthodes liées aux événements: on + nom de l'événement : onAllumer()
+On peut lier du code à n'importe quelle proprieté ou événement des éléments du DOM.
+
+Two-way binding (liaison à double sens)
+Utilise la liaison par proprieté (Property binding) et la liaison par événement (Event binding) en même temps [()].
+Pour l'utiliser il faut importer FormsModule depuis @angular/forms et l'ajouter dans le tableau imports: [] de AppModule.
+ngModel est un directive permettant two way binding de fonctionner
+    <input type="text" class="form-control" [(ngModel)]="appareilName">
+
+Proprietés personnalisées
+
+@Input() est un décorateur qui cré une proprieté qu'on peut fixer depuis le nom de balise d'un component donnée
+    Exemple:
+        @Input() appareilName: string;
+        @Input() appareilStatus: string;
+        <app-appareil [appareilName]="appareilOne" [appareilStatus]="'éteint'"></app-appareil>
+Si vous employez les crochets pour le property binding et que vous souhaitez y passer un string directement, 
+il faut le mettre entre apostrophes, car entre les guillemets, il doit y avoir un statement de TypeScript valable.
+
+Les directives
+Les directives sont des instructions intégrées dans le DOM que vous utliserez quand vous créerez des applications Angular.
+    
+    Les directives structurelles
+    Directives qui modifient la structure du document
+    '*' permet à angular de savoir que c'est un directive
+    Exemple: *ngIf *ngFor
+    <app-appareil *ngFor="let appareil of appareils" [appareilName]="appareil.name" [appareilStatus]="appareil.status" ></app-appareil>
+
+
+    Les directives par attribut
+    Directives qui modifient le comportement d'un objet déjà existant
+    Exemple: 
+    ngModel permet le two way biding
+    ngStyle permet d'appliquer des styles à un objet du DOM de manière dynamique
+    ngClass
+
+
+
+
+Les pipes
+Les pipes prennent des données en input les transforment et les affichent dans le DOM  
+pour pouvoir personnaliser l'affichage des données sans en modifier la nature.
+    Exemple: <p>Mis à jour : {{ lastUpdate | date }}</p>
+    Angular permet de pouvoir donner des paramétres à DatePipe en lui passant un argument de formatage
+    <p>Mis à jour : {{ lastUpdate | date: 'short' }}</p>
+On peut utiliser plusieurs pipes pour un seul élément du DOM. L'ordre des pipes est important.
+    Exemple: <p>Mis à jour : {{ lastUpdate | date: 'yMMMMEEEEd' | uppercase }}</p>
+pipe async:
+permet de gérer des donnes asynchromes, par eemple des données que l'application doit récupérer sur un serveur.
+Exemple: <p>Mis à jour : {{ lastUpdate | sync | date: 'yMMMMEEEEd' | uppercase }}</p>
+
+
+Service
+Un service permet de centraliser des parties de votre code et des données qui soont utilisées par plusieurs parties de l'application
+ou de manière globale par l'application entière.
+Si le service est injecté dans AppModule (dans providers), la même instance du service sera utilisée par tous les components 
+de l'application et par les autres services.
+Si le service est injecté dans AppComponent, tous les components auront accès à la même instance du service mais non les autres services.
+Si il est injecté dans un autre component, le component lui même et tous ses enfants auront accès à la même instance du service, 
+mais le reste de l'application n'y aura pas accès.
+
+ngOnInit() correspond à une "lifecycle hook" il est exécutée une fois par instance au moment de la création du component par Angular 
+et après son constructeur
+
+Routing
+Il s'agit des insructions d'affichage à suivre pour chaque URL, c'est-à-dire quel(s) component(s) il faut afficher à quel(s) endroit(s) 
+pour un URL donné.
+On déclare les routes dans app.module.ts (Il est possible d'avoir un fichié séparé pour le routing).
+On crée une constante de type Routes qui est un array d'objet qui prennent certaine forme.
+Exemple:
+        const appRoutes: Routes = [
+            { path: 'appareils', component: AppareilViewComponent },
+            { path: 'auth', component: AuthComponent },
+            { path: '', component: AppareilViewComponent }
+        ];
+Maintenant il faut importer RouterModule depuis @angular/router et l'ajouter dans l'array imports[] de AppModule en appelant la méthode forRoot() 
+en lui pasant notre constante appRoutes.
+On utilise la balise <router-outlet></router-outlet>  pour naviger vers les roues.
+
+Naviguer avec les routerLink
+Pour utiliser les routerLink et non les href pour la navigation, on utilise l'attribut routerLink.
+Pour rendre actif le lien de navigation cliquée, on utilise l'attribut routerLinkActive et on lui donne comme valeur "active" : routerLinkActive="active" 
+
+Naviguer avec le Router
+Il faut injecter Router (importé depuis @angular/router) pour accéder à la méthode navigate().
+
+Paramètres de routes
+Pour indiquer qu'une route doit avoir un paramètre, on crée d'abord la route dans AppModule, on fait suivre ":" 
+L'utilisation des deux-points  :  avant un fragment de route déclare ce fragment comme étant un paramètre 
+
+Exemple : { path: 'appareils/:id', component: SingleAppareilComponent },
+
+Pour récupérer un fragement de l'URL (exemple ici: id) on injecte dans notre component ActivatedRoute de @angular/router. Puis on utilise l'objet sanapshot 
+qui contient les paramétres de l'URL.
+
+Redirection
+Pour la redirection sur une page not found par exemple, il faut un component 404, créer sa route sur AppModule puis créer une autre route wilcard 
+qui pointe sur not-found une fois une route non existante entrée.
+Exemple:    { path: 'not-found', component: FourOhFourComponent },
+            { path: '**', redirectTo: 'not-found' }
+
+Guards
+Une guard est en effet un service qu'angular exécute au moment où l'utilisateur essaye de naviguer vers la route sélectionnée.
+Ce service implémente l'interface canActivate, et donc doit contenir une méthode du même nom qui prend les arguments  ActivatedRouteSnapshot  
+et  RouterStateSnapshot (qui lui seront fournis par Angular au moment de l'exécution) et retourne une valeur booléenne, soit de manière synchrone (boolean), 
+soit de manière asynchrone (sous forme de Promise ou d'Observable).
+Pour injecter un service dans un autre service, il faut que le service dans le quel on injecte un autre ait le décorateur @Injectable de @angular/core.
+Tous le logique doit être dans la méthode canActivate().
+Après avoir défini le guard, il faut l'appeler dans AppModule précisément dans l'array providers[] puisqu'il s'agit d'un service.
+Pour le définir a une route donnée, il faut ajouter l'attribut canActivate dans l'objet de la route en le donnant comme valeur un tableau contenant le nom du guard.
+
+Exemple: { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },

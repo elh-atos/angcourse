@@ -1,0 +1,17 @@
+
+<li >
+    <div [ngStyle]="{color: getColor()}" [ngClass]="{
+        'bg-success':post.loveIts > 0,
+        'bg-danger':post.loveIts < 0
+    }"  style="padding: 10px;">
+        <div class="row">
+            <h2 class="col-md-10" style="margin: 0;" >{{post.title}}</h2> 
+            <span class="text-left" style="color: grey;">{{post.created_at | date:'short'}}</span>
+        </div>
+        <p>{{post.content}}</p>
+        <div>
+            <button (click)="onLoveIt(post.title)" class="btn btn-success" style="margin-right: 5px;">Love it!</button>
+            <button (click)="onDontLoveIt(post.title)" class="btn btn-danger">Dont't love it!</button>
+        </div>
+    </div>
+</li>
