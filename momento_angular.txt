@@ -150,3 +150,7 @@ Après avoir défini le guard, il faut l'appeler dans AppModule précisément da
 Pour le définir a une route donnée, il faut ajouter l'attribut canActivate dans l'objet de la route en le donnant comme valeur un tableau contenant le nom du guard.
 
 Exemple: { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
+
+Observez les données avec RxJS:
+
+Les Observables:

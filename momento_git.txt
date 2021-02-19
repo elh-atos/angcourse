@@ -28,6 +28,8 @@ git gère les versions de nos travaux locaux à travers 3 zones locales majeurs:
  Pour accéder au historique de commit et afficher toutes nos actions et leurs SHA
  git reflog
 
+Cooriger vos erreur sur le dépot local:
+
 Pour supprimer une branche :
 git branch -d <nom-branch>
 Pour forcer la suppression:
@@ -55,3 +57,10 @@ git reset --hard ca83a6df
 
 Pour changer le message d'un commit:
 git commit --amend -m "votre nouveau message"
+
+Pour ajouter un fichier oublié lors d'un commit sans changer le message du commit:
+git add fichier.text
+git commit --amend --no-edit
+
+Corriger vos erreurs sur le dépot distant:
+
