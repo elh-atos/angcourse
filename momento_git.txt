@@ -50,3 +50,8 @@ git stash apply stash@{1} (le 1 signifie le numéro du stash)
 
 Pour annuler un commit:
 git reset --hard "HEAD^" le "^" veut dire le dernier commit
+On peut aussi remplacer "HEAD^" par les 8 permiers caractères de son identifiant
+git reset --hard ca83a6df
+
+Pour changer le message d'un commit:
+git commit --amend -m "votre nouveau message"
