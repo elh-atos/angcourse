@@ -36,4 +36,8 @@ git branch -D <nom-branch>
 Pour ajouter un fichier sur le stage:
 git add nom-fichier
 
-Pour mettre de côté une modification de côté 
+Pour mettre de côté une modification de côté (créer une remise):
+git stash
+
+Pour lister tous les remises:
+git stash list
