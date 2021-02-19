@@ -20,3 +20,16 @@ git init
 
 git remote add <nom> <url> permet de dire au dépot que l'on pointe vers le sépot distant.
 
+git gère les versions de nos travaux locaux à travers 3 zones locales majeurs:
+ le répertoire de travail (working directory/WD)
+ l'index, ou stage (tous les fichies modifiés que nous voulons voir apparaitre dans notre prochain commit: git add)
+ le dépôt local (Git directory/repository) (se fait avec la commande git commit)
+
+ Pour accéder au historique de commit et afficher toutes nos actions et leurs SHA
+ git reflog
+
+Pour supprimer une branche :
+git branch -d <nom-branch>
+
+Pour ajouter un fichier sur le stage:
+git add nom-fichier
