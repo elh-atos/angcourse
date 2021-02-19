@@ -41,3 +41,9 @@ git stash
 
 Pour lister tous les remises:
 git stash list
+
+Pour appliquer la dernière remis:
+git stash apply
+
+Pour appliquer une remise spécifique:
+git stash apply stash@{1} (le 1 signifie le numéro du stash)
