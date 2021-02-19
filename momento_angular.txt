@@ -178,3 +178,12 @@ counter.subscribe(
 Subscriptions:
 Quand on utilise les Observables personnalisés, il est conseillé de stocker la souscription dans un objet Subscription (depuis rxjs/Subscription);
 unSubscription() dans ngOnDestroy() va permettre de détruire l'observable une fois terminé.
+
+Les subjects
+Les subjects permettent de réagir à de nouvelles informations, mais également d'en émettre.
+Si une variable d'un service est modifiée, les subjects feront que tous les components liés à ce service vont régir à cet changement.
+
+Les Opérateurs:
+Un opérateur est une fonction qui se place entre l'Observable et l'Observer(la Subscription par exemple), et qui peut filtrer et/ou modifier 
+les données reçues avant même qu'elles n'arrivent à la Subscription.
+map(), filter(), throttleTime(), scan(), reduce()...

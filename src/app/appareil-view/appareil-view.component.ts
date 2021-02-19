@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AppareilServie } from '../services/appareil.service';
 
 @Component({
@@ -6,11 +7,12 @@ import { AppareilServie } from '../services/appareil.service';
   templateUrl: './appareil-view.component.html',
   styleUrls: ['./appareil-view.component.scss']
 })
-export class AppareilViewComponent implements OnInit {
+export class AppareilViewComponent implements OnInit, OnDestroy {
 
   isAuh = false;
   //posts = new Post();
   appareils: any[];
+  appareilsSubscription: Subscription;
 
   posts = [
     {
@@ -39,9 +41,9 @@ export class AppareilViewComponent implements OnInit {
       resolve(date);
     }, 2000);
   });
-  appareilOne="Machine à laver";
-  appareilTwo="Frigo";
-  appareilThree="Ordinateur";
+  // appareilOne="Machine à laverr";
+  // appareilTwo="Frigo";
+  // appareilThree="Ordinateur";
 
   constructor(private appareilService: AppareilServie){
     setTimeout(() => {
@@ -50,7 +52,12 @@ export class AppareilViewComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.appareils = this.appareilService.appareils;
+    this.appareilsSubscription = this.appareilService.appareilSubject.subscribe(
+      (appareils: any[])=>{
+        this.appareils = appareils;
+      }
+    );
+    this.appareilService.emitAppareilSubject();
   }
 
   onAllumer(){
@@ -63,6 +70,10 @@ export class AppareilViewComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  ngOnDestroy(){
+    this.appareilsSubscription.unsubscribe();
   }
 
 }
