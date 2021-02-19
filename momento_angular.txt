@@ -150,3 +150,31 @@ Après avoir défini le guard, il faut l'appeler dans AppModule précisément da
 Pour le définir a une route donnée, il faut ajouter l'attribut canActivate dans l'objet de la route en le donnant comme valeur un tableau contenant le nom du guard.
 
 Exemple: { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
+
+Observez les données avec RxJS:
+
+Les Observables:
+Un observable et objet qui émet des informmations auxquelles on souhaite réagir. Ces informations peuvent venir d'un champ de texte dans lequel
+l'utilisateur rentre des données, ou de la progression d'un chargement de fichier, par exemple;
+A cet Observable, on associe un Oberver, un bloc de code qui sera exécuté à chaque fois que l'Observable émet une information.
+L'Observable émet trois types d'information: des données, une erreur, ou un message complete.
+Pour souscrire à un Observable on utilise l'objet subscribe().
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
+const counter = Observable.interval(1000);
+counter.subscribe(
+    (value: number)=>{
+        this.secondes = value;
+    },
+    (error: any)=>{
+        console.log('Une erreur a été rencontrée !');
+    },
+    ()=>{
+        console.log('Observable complété');
+    }
+)
+
+Subscriptions:
+Quand on utilise les Observables personnalisés, il est conseillé de stocker la souscription dans un objet Subscription (depuis rxjs/Subscription);
+unSubscription() dans ngOnDestroy() va permettre de détruire l'observable une fois terminé.

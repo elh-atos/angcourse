@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
+import { Subscription } from 'rxjs/Rx';
 import { Post } from './class/post';
 import { AppareilServie } from './services/appareil.service';
 @Component({
@@ -6,7 +9,7 @@ import { AppareilServie } from './services/appareil.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent  implements OnInit {
+export class AppComponent  implements OnInit, OnDestroy {
  
   // isAuh = false;
   // //posts = new Post();
@@ -65,8 +68,33 @@ export class AppComponent  implements OnInit {
   //   }
   // }
 
+  secondes: number;
+  counterSubscription: Subscription;
+
   constructor(){}
 
-  ngOnInit(){}
+  ngOnInit(){
+    const counter = Observable.interval(1000);
+    this.counterSubscription = counter.subscribe(
+      (value: number)=>{
+        this.secondes = value;
+      }
+    )
+    // counter.subscribe(
+    //   (value: number)=>{
+    //     this.secondes = value;
+    //   },
+    //   (error: any)=>{
+    //     console.log('Une erreur a été rencontrée !');
+    //   },
+    //   ()=>{
+    //     console.log('Observable complété');
+    //   }
+    // )
+  }
+
+  ngOnDestroy(){
+    this.counterSubscription.unsubscribe();
+  }
 
 }
