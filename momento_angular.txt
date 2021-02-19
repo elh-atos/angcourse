@@ -154,6 +154,7 @@ Exemple: { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewC
 Observez les données avec RxJS:
 
 Les Observables:
+<<<<<<< HEAD
 Un observable et objet qui émet des informmations auxquelles on souhaite réagir. Ces informations peuvent venir d'un champ de texte dans lequel
 l'utilisateur rentre des données, ou de la progression d'un chargement de fichier, par exemple;
 A cet Observable, on associe un Oberver, un bloc de code qui sera exécuté à chaque fois que l'Observable émet une information.
@@ -187,3 +188,5 @@ Les Opérateurs:
 Un opérateur est une fonction qui se place entre l'Observable et l'Observer(la Subscription par exemple), et qui peut filtrer et/ou modifier 
 les données reçues avant même qu'elles n'arrivent à la Subscription.
 map(), filter(), throttleTime(), scan(), reduce()...
+=======
+>>>>>>> parent of cc1aaa8 (teste)
