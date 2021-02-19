@@ -30,6 +30,10 @@ git gère les versions de nos travaux locaux à travers 3 zones locales majeurs:
 
 Pour supprimer une branche :
 git branch -d <nom-branch>
+Pour forcer la suppression:
+git branch -D <nom-branch>
 
 Pour ajouter un fichier sur le stage:
 git add nom-fichier
+
+Pour mettre de côté une modification de côté 
